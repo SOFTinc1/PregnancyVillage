@@ -1,0 +1,60 @@
+<app-header></app-header>
+
+<div id="one">
+  <div class="containe">
+    <div class="row">
+      <div class="col-md-2 nav-col">
+        <ul class="navbar-nav">
+          <li class="nav-item active">
+            <a class="nav-link" routerLink="/">Home <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/blog">blog</a>
+          </li>
+        </ul>
+      </div>
+      <div class="col-md-10 details-col">
+        <h1>Blog post</h1>
+        <h2>create a new blog post or edit existing post</h2>
+        <hr>
+      </div>
+    </div>
+
+    <div class="container move-it">
+      <div class="row">
+        <div class="col-md-4">
+          <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Autem facere numquam dignissimos necessitatibus nisi iusto sunt sit odio quia doloremque!</p>
+          <p>we would love to hear from you, please drop your wonderful opinion in the form by the right</p>
+        </div>
+        <div class="col-md-8">
+          <h2>post details</h2>
+          <mat-spinner *ngIf="isLoading"></mat-spinner>
+          <form [formGroup]="form" (submit)="onEditPost()" *ngIf="!isLoading">
+            <mat-form-field class="form-one" appearance="outline">
+              <mat-label>post title <address></address></mat-label>
+              <input matInput type="text" formControlName="title">
+              <mat-error *ngIf="form.get('title').invalid">Please enter a post title.</mat-error>
+            </mat-form-field>
+            <div class="row">
+              <div class="col-md-9 break mb-3">
+                <button type="button" (click)="filePicker.click()">Pick Image</button>
+                <input type="file" #filePicker (change)="onImagePicked($event)">
+              </div>
+              <div class="col-md-3 image-preview" *ngIf="imagePreview !== '' && imagePreview && form.get('image').valid">
+                  <img [src]="imagePreview" [alt]="form.value.title"/>
+              </div>
+            </div>
+            <mat-form-field class="form-one" appearance="outline">
+              <mat-label>post content <address></address></mat-label>
+              <textarea matInput type="text" formControlName="content"></textarea>
+              <mat-error *ngIf="form.get('content').invalid">Please enter a post title.</mat-error>
+            </mat-form-field>
+            <button class="btn" type="submit">edit post</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+<app-footer></app-footer>

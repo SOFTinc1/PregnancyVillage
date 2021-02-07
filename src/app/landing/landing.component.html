@@ -1,0 +1,181 @@
+<app-header></app-header>
+
+<div id="one">
+  <div class="containe">
+    <div class="row" data-aos="fade-up">
+      <div class="col-md-2 nav-col">
+        <ul class="navbar-nav">
+          <li class="nav-item active">
+            <a class="nav-link" routerLink="/">Home <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/blog">forum</a>
+          </li>
+          <li *ngIf="userIsAuthenticated">
+            <button mat-button (click)="onLogout()">Logout</button>
+          </li>
+        </ul>
+      </div>
+      <div class="col-md-10 details-col">
+        <h1>welcome to nigeria's first online pregnancy forum...</h1>
+        <p>Pregnancy village is Nigeria's first online community platform for pregnant women.
+          The platform allows women from anywhere share their experience during pregnancy,
+          get access to doctors and specialist, and a market place to buy and sell babies stuffs
+        </p>
+      </div>
+    </div>
+    <div class="row" data-aos="fade-up" data-aos-delay="50">
+      <div class="col-md-2 nav-col2">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="#three">services</a>
+          </li>
+          <li class="nav-item" *ngIf="!userIsAuthenticated">
+            <a class="nav-link" routerLink="/login">login</a>
+          </li>
+        </ul>
+      </div>
+      <div class="col-md-10 details-img">
+        <img src="assets/images/preg2-blue.jpg" alt="">
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="two" class="py-5">
+  <div class="containe">
+    <div class="row">
+      <div class="col-md-2 pad-col"></div>
+      <div class="col-md-10">
+        <h1>who we are</h1>
+        <hr>
+        <div class="container cancel">
+
+          <div class="row">
+            <div class="col-md-6" data-aos="fade-up">
+              <h4>Connect with other mothers and mothers-to-be on our pregnancy forum. </h4>
+              <p>Ask questions and share tips on getting pregnant, journey through pregnancy,
+                delivery, parenting, feeding and baby care.
+              </p>
+            </div>
+            <div class="col-md-6" data-aos="fade-down">
+              <img src="assets/images/preg4.jpg" class="img-fluid" alt="">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="three" class="py-5">
+  <div class="containe">
+    <div class="row">
+      <div class="col-md-2"></div>
+      <div class="col-md-10">
+        <h1>pregnancy village, what are we about and what do we bring to the public?</h1>
+        <hr>
+        <div class="container cancel">
+
+          <h2>our services</h2>
+          <div class="row">
+            <div class="col-md-6 bg-img">
+              <div class="card" data-aos="flip-up">
+                <h1>forum</h1>
+                <p><span>>></span> Connect with other mothers and mothers-to-be on our pregnancy forum.
+                  Ask questions and share tips on getting pregnant, journey through pregnancy,
+                  delivery, parenting, feeding and baby care.
+                </p>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="card" data-aos="flip-down">
+                <h1>Market Place</h1>
+                <p> <span>>></span> Find the best product for you and your baby in our online shop.
+                  Become a vendor or buy pregnancy care products, maternity pillow, maternity lingerie,
+                  bedsheets, baby products et al, at the best price.
+                </p>
+                <span>coming soon</span>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="card" data-aos="flip-up">
+                <h1>Consultancy</h1>
+                <p> <span>>></span>Book a one-on-one consultation session with our in-house doctors,
+                  obstetrician and midwife who listens to your concerns,
+                  answer your questions provide useful information and suggestions on healthy pregnancy practices.
+                </p>
+                <span>coming soon</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="four" class="py-5">
+  <div class="containe">
+    <div class="row">
+      <div class="col-md-2"></div>
+      <div class="col-md-10" data-aos="zoom-in" data-aos-delay="50">
+        <h1>we would like to keep you up to date about our services</h1>
+        <hr>
+        <div class="container cancel">
+          <h4>subscribe to our newsletter and always be one step ahead</h4>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus, in esse vero dolor rerum, inventore eveniet at sunt impedit eligendi reprehenderit hic totam vel ratione quod voluptas quaerat. Quisquam tempora autem pariatur laudantium natus blanditiis adipisci veritatis culpa provident velit! Perferendis atque dignissimos autem provident magnam dolorem expedita quaerat voluptates?</p>
+          <mat-form-field class="form-one" appearance="outline">
+            <mat-label>enter e-mail here <address></address></mat-label>
+            <input matInput type="text" formControlName="email">
+          </mat-form-field>
+          <button class="btn">send</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div id="six" class="py-5">
+  <div class="containe">
+    <div class="row">
+      <div class="col-md-2"></div>
+      <div class="col-md-10">
+        <h1>contact us</h1>
+        <hr>
+        <div class="container cancel">
+
+          <div class="row">
+            <div class="col-md-4" data-aos="fade-up">
+              <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Autem facere numquam dignissimos necessitatibus nisi iusto sunt sit odio quia doloremque!</p>
+              <p>we would love to hear from you, please drop your wonderful opinion in the form by the right</p>
+            </div>
+            <div class="col-md-8" data-aos="fade-down">
+              <h2>your contact</h2>
+              <mat-form-field class="form-one" appearance="outline">
+                <mat-label>full name <address></address></mat-label>
+                <input matInput type="text" formControlName="email">
+              </mat-form-field>
+              <mat-form-field class="form-one" appearance="outline">
+                <mat-label>e-mail <address></address></mat-label>
+                <input matInput type="text" formControlName="email">
+              </mat-form-field>
+              <h2>lets hear your thoughts</h2>
+              <mat-form-field class="form-one" appearance="outline">
+                <mat-label>message <address></address></mat-label>
+                <textarea matInput type="text" formControlName="email"></textarea>
+              </mat-form-field>
+              <button class="btn">send message</button>
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<app-footer></app-footer>

@@ -1,0 +1,79 @@
+@import '~ngx-owl-carousel-o/lib/styles/scss/owl.carousel';
+@import '~ngx-owl-carousel-o/lib/styles/scss/owl.theme.default';
+
+// --------------------- GENERAL -----------------------------
+body { width: 100%; }
+.row { margin: 0rem; }
+button { font-family: 'Julius Sans One', sans-serif; border: 2px solid rgb(199, 198, 198); border-radius: 0rem; padding: 0.5rem 1rem 0.5rem 1rem; font-weight: 600; text-transform: capitalize; transition: all .9s ease-out; }
+button:hover { background-color: #000; color: #fff; border: none; outline: none; transform: scale(1.1); }
+a, p { font-family: 'Comfortaa', cursive; }
+h1 { font-family: 'Abril Fatface', cursive; letter-spacing: 0.1rem; text-transform: capitalize; }
+h2, h4 { font-family: 'Julius Sans One', sans-serif; font-weight: 600; }
+::ng-deep .mat-form-field-label { font-family: 'Julius Sans One', sans-serif!important; font-weight: 600; }
+//---------------------- END OF GENERAL ------------------------
+
+
+// ---------------------ONE---------------------------
+#one { padding: 0rem 2rem 1rem 5rem; margin-top: 2rem; }
+#one .nav-col { margin-top: 5rem; }
+#one .nav-col ul li a { font-size: 1rem; font-weight: 400; text-transform: capitalize; color: #aaa; }
+#one .nav-col ul li a:hover, #one .nav-col ul li a:focus { font-weight: 600; color: #000; }
+#one .details-col { margin-top: 3rem; }
+#one .details-col p { font-size: 0.8rem; font-weight: 400; text-transform: capitalize; color: #aaa; }
+#one .nav-col2 { margin-top: 5rem; }
+#one .nav-col2 ul li a { font-size: 1rem; font-weight: 400; text-transform: capitalize; color: #aaa; }
+#one .nav-col2 ul li a:hover, #one .nav-col ul li a:focus { font-weight: 600; color: #000; }
+#one .details-img img { width: 100%; height: 27rem; margin-top: 1rem; border: none; }
+
+#one .details-img {  margin-top: -5rem; }
+#one .details-img .card { box-shadow:0 10px 20px -10px rgba(0, 0, 0, 0.4); border: none; padding: 0rem 0rem 1rem 0rem; margin-top: 1rem; border-radius: 0rem; transition: all .9s ease-out; }
+#one .details-img .card p { margin: 1rem; }
+// #one .details-img .card .button-div { margin-right: 1rem; }
+#one .details-img .card .button-div button { border: none; }
+
+
+#one .comment h1 { max-width: 40rem; }
+#one .comment .card { box-shadow:0 10px 20px -10px rgba(0, 0, 0, 0.4); border: none; padding: 1rem; margin-top: 1rem; border-radius: 0rem; transition: all .9s ease-out; }
+#one .comment .card p { font-size: 0.9rem; font-weight: 400; text-transform: capitalize; color: #aaa; }
+#one .comment .card h5 { font-size: 1rem; font-weight: 600; text-transform: capitalize; }
+// --------------------- END OF ONE---------------------------
+
+
+// ------------------------ Mobile Devices -----------------------------------
+
+@media screen and (max-width:1200px){
+
+}
+
+@media screen and (max-width:900px){
+#one { padding: 0rem 2rem 1rem 5rem; margin-top: 2rem; }
+
+}
+
+@media screen and (max-width:800px){
+
+}
+
+@media screen and (max-width:750px){
+  #one { padding: 0rem; margin-top: -2rem; }
+  #one .navbar-nav { display: none; }
+  #one .details-img img { margin-top: -2rem; }
+
+}
+
+@media screen and (max-width:650px){
+
+}
+
+@media screen and (max-width:550px){
+
+}
+
+@media screen and (max-width:450px){
+
+}
+
+@media screen and (max-width:350px){
+  #four mat-form-field button { margin-top: 0rem; margin-left: 0rem; }
+}
+

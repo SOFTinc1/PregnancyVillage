@@ -1,0 +1,56 @@
+<app-header></app-header>
+
+<div id="one" class="mb-5">
+  <div class="containe">
+    <div class="row" data-aos="fade-up">
+      <div class="col-md-2 nav-col">
+        <ul class="navbar-nav">
+          <li class="nav-item active">
+            <a class="nav-link" routerLink="/">Home <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/blog">forum</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/register">register</a>
+          </li>
+        </ul>
+      </div>
+      <div class="col-md-10 details-col">
+        <h1>welcome back</h1>
+        <h2>login</h2>
+        <hr>
+      </div>
+    </div>
+
+    <div class="container move-it">
+      <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-4" data-aos="fade-up">
+          <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Autem facere numquam dignissimos necessitatibus nisi iusto sunt sit odio quia doloremque!</p>
+          <p>we would love to hear from you, please drop your wonderful opinion in the form by the right</p>
+        </div>
+        <div class="col-md-6" data-aos="fade-down">
+          <h2>your credentials</h2>
+          <mat-spinner *ngIf="isLoading"></mat-spinner>
+          <form (submit)="onLogin(loginForm)" #loginForm="ngForm" *ngIf="!isLoading">
+            <mat-form-field class="form-one" appearance="outline">
+              <mat-label>email <address></address></mat-label>
+              <input matInput name="email" ngModel type="email" placeholder="E-Mail" #emailInput="ngModel" required email>
+              <mat-error *ngIf="emailInput.invalid">Please enter a valid email.</mat-error>
+            </mat-form-field>
+            <mat-form-field class="form-one" appearance="outline">
+              <mat-label>password <address></address></mat-label>
+              <input type="password" name="password" ngModel matInput placeholder="Password" #passwordInput="ngModel" required>
+              <mat-error *ngIf="passwordInput.invalid">Please enter a valid password.</mat-error>
+            </mat-form-field>
+            <p class="text-right"><a routerLink="/login/forget-password">forget password?</a></p>
+            <button class="btn" type="submit" *ngIf="!isLoading" (click)="openSnackBar('login successful', 'enter')">login</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+<app-footer></app-footer>

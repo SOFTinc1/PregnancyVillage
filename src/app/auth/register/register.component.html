@@ -1,0 +1,81 @@
+<app-header></app-header>
+
+<div id="one" class="mb-5">
+  <div class="containe">
+    <div class="row" data-aos="fade-up">
+      <div class="col-md-2 nav-col">
+        <ul class="navbar-nav">
+          <li class="nav-item active">
+            <a class="nav-link" routerLink="/">Home <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/blog">forum</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/login">login</a>
+          </li>
+        </ul>
+      </div>
+      <div class="col-md-10 details-col">
+        <h1>new user</h1>
+        <h2>register</h2>
+        <hr>
+      </div>
+    </div>
+
+    <div class="container move-it">
+      <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-4" data-aos="fade-up">
+          <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Autem facere numquam dignissimos necessitatibus nisi iusto sunt sit odio quia doloremque!</p>
+          <p>we would love to hear from you, please drop your wonderful opinion in the form by the right</p>
+        </div>
+        <div class="col-md-6" data-aos="fade-down">
+          <h2>your information</h2>
+          <mat-spinner *ngIf="isLoading"></mat-spinner>
+
+          <form (submit)="onSignup(signupForm)" #signupForm="ngForm" *ngIf="!isLoading">
+            <mat-form-field class="form-one" appearance="outline">
+              <mat-label>full name <address></address></mat-label>
+              <input matInput ngModel name="fullname" type="text" #fullnameInput="ngModel" required fullname>
+              <mat-error *ngIf="fullnameInput.invalid">Please enter a valid name.</mat-error>
+            </mat-form-field>
+            <mat-form-field class="form-one" appearance="outline">
+              <mat-label>phone number <address></address></mat-label>
+              <input matInput ngModel name="phone" type="text" #phoneInput="ngModel" required phone>
+              <mat-error *ngIf="phoneInput.invalid">Please enter a valid phone number.</mat-error>
+            </mat-form-field>
+            <mat-form-field class="form-one" appearance="outline">
+              <mat-label>email <address></address></mat-label>
+              <input matInput ngModel name="email" type="text" #emailInput="ngModel" required email>
+              <mat-error *ngIf="emailInput.invalid">Please enter a valid email.</mat-error>
+            </mat-form-field>
+            <!-- <div class="row">
+              <div class="col-md-9 break">
+                <button class="btn" type="button" (click)="filePicker.click()">upload Image</button>
+                <input type="file" #filePicker (change)="onImagePicked($event)">
+              </div>
+              <div class="col-md-3 image-preview">
+                  <img [src]="imagePreview" [alt]="form.value.imagePath">
+              </div>
+            </div> -->
+            <mat-form-field class="form-one" appearance="outline">
+              <mat-label>password <address></address></mat-label>
+              <input type="password" ngModel name="password" matInput #passwordInput="ngModel" required>
+              <mat-error *ngIf="passwordInput.invalid">Please enter a valid password.</mat-error>
+            </mat-form-field>
+            <mat-form-field class="form-one" appearance="outline">
+              <mat-label>confirm password <address></address></mat-label>
+              <input type="password" ngModel name="passwordCheck" matInput #passwordCheckInput="ngModel" required>
+              <mat-error *ngIf="passwordCheckInput.invalid">Please enter the same password.</mat-error>
+            </mat-form-field>
+            <button class="btn" type="submit" *ngIf="!isLoading" (click)="openSnackBar('message', 'action')">register</button>
+          </form>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+<app-footer></app-footer>

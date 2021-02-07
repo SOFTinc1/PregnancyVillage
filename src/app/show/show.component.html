@@ -1,0 +1,59 @@
+<app-header></app-header>
+
+<div id="one">
+  <div class="containe">
+    <div class="row" data-aos="fade-up">
+      <div class="col-md-2 nav-col">
+        <ul class="navbar-nav">
+          <li class="nav-item active">
+            <a class="nav-link" routerLink="/">Home <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/blog">forum</a>
+          </li>
+        </ul>
+      </div>
+      <div class="col-md-10 details-col">
+        <h1>{{post.title}}</h1>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2 nav-col2">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/login">login</a>
+          </li>
+        </ul>
+      </div>
+      <div class="col-md-10 details-img">
+        <div class="card mb-5">
+          <img [src]="post.imagePath" alt="">
+
+          <p class="mt-2">{{post.content}}</p>
+          <div class="row ml-auto button-div">
+            <div class="col-md-6">
+              <button class="btn btn-warning" [routerLink]="['/show', post.id, '/edit', post.id]">edit </button>
+            </div>
+            <div class="col-md-6">
+              <button class="btn btn-danger" (click)="onDelete(post.id)">delete </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row comment">
+      <div class="col-md-2"></div>
+      <div class="col-md-10">
+        <h1>comments</h1>
+        <div class="card" data-aos="flip-up">
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam temporibus distinctio accusamus deserunt similique inventore, repellat nihil illo repudiandae libero.</p>
+          <h5>~ obadiah tobiloba</h5>
+        </div>
+        <button class="btn mt-3" routerLink="/">add comment</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<app-footer></app-footer>
