@@ -30,11 +30,11 @@ const routes: Routes = [
   { path: 'show/:postId',
     loadChildren: () => import ('./show/show.module')
       .then(m => m.ShowModule)
+  },
+  { path: 'comment/:postId', canActivate: [AuthGuard],
+    loadChildren: () => import('./show/comment/comment.module')
+      .then(m => m.CommentModule)
   }
-  // { path: 'edit/:postId', canActivate: [AuthGuard],
-  //   loadChildren: () => import./blog/edit/edit.moduleule')
-  //     .then(m => m.EditModule)
-  // }
 ];
 
 @NgModule({

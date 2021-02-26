@@ -2,7 +2,7 @@
 
 <div id="one">
   <div class="containe">
-    <div class="row" data-aos="fade-up">
+    <div class="row">
       <div class="col-md-2 nav-col">
         <ul class="navbar-nav">
           <li class="nav-item active">
@@ -11,10 +11,13 @@
           <li class="nav-item" *ngIf="!userIsAuthenticated">
             <a class="nav-link" routerLink="/login">login</a>
           </li>
+          <li class="nav-item" *ngIf="userIsAuthenticated">
+            <a class="nav-link" routerLink="/login">talk to a pro</a>
+          </li>
         </ul>
       </div>
       <div class="col-md-10 details-col">
-        <h1>welcome to the nigeria's first online pregnancy forum...</h1>
+        <h1>welcome <span *ngIf="userIsAuthenticated">{{userName}}</span> to nigeria's first online pregnancy forum...</h1>
         <p>Pregnancy village is Nigeria's first online community platform for pregnant women.
           The platform allows women from anywhere share their experience during pregnancy,
           get access to doctors and specialist, and a market place to buy and sell babies stuffs
@@ -22,14 +25,17 @@
         <button class="btn"  routerLink="/blog/new">create new blog post </button>
       </div>
     </div>
-    <div class="row" data-aos="fade-up" data-aos-delay="50">
+    <div class="row">
       <div class="col-md-2 nav-col2">
         <ul class="navbar-nav">
           <li class="nav-item" *ngIf="!userIsAuthenticated">
-            <a class="nav-link" routerLink="/login">register</a>
+            <a class="nav-link" routerLink="/register">register</a>
           </li>
-          <li class="nav-item" *ngIf="!userIsAuthenticated">
-            <a class="nav-link" routerLink="/dashboard">dashboard</a>
+          <li class="nav-item" *ngIf="userIsAuthenticated">
+            <a class="nav-link" routerLink="/dashboard">{{userName}}</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/login">market place</a>
           </li>
           <li *ngIf="userIsAuthenticated">
             <button mat-button (click)="onLogout()">Logout</button>
@@ -47,72 +53,36 @@
 <div id="two" class="py-5">
   <div class="containe">
     <div class="row">
-      <!-- <mat-spinner *ngIf="isLoading"></mat-spinner> -->
+      <mat-spinner *ngIf="isLoading"></mat-spinner>
       <div class="col-md-2 pad-col"></div>
       <div class="col-md-10">
         <h1>forum</h1>
-        <h2>all discussions</h2>
-        <!-- multi="true" *ngIf="posts.length > 0 && !isLoading" -->
-        <div class="container cancel">
-          <!-- <div class="row omg" *ngFor="let post of posts">
+        <h2>get all posts</h2>
+
+        <div class="container cancel" multi="true" *ngIf="posts.length > 0 && !isLoading">
+          <div class="row omg" *ngFor="let post of posts">
             <div class="col-md-7">
               <h4>{{post.title}}</h4>
-              <p>{{post.content}}</p>
-              <button class="btn" routerLink="/show/{{post.id}}">learn more</button>
+              <span>post by:. {{post.creatorName}}</span>
+              <p>{{post.content | slice:0:250}} <span style="color: #000; font-weight: 600;">...</span></p>
+              <button class="btn" [routerLink]="['/show', post.id]">learn more</button>
             </div>
             <div class="col-md-5">
               <img [src]="post.imagePath" [alt]="post.title" class="img-responsive">
             </div>
           </div>
-          <p class="info-text mat-body-1" *ngIf="posts.length <= 0 && !isLoading">No posts added yet!</p> -->
-
-          <div class="row omg">
-            <div class="col-md-7" data-aos="fade-up">
-              <h4>post title</h4>
-              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta placeat, magni qui ratione ducimus iste beatae quos asperiores exercitationem tempore veniam deserunt obcaecati modi adipisci itaque saepe ea facilis molestiae accusantium! Quidem ipsam quae omnis repudiandae, a libero harum quos? Rem, laudantium expedita corrupti illum voluptatum at id nam saepe!</p>
-              <!-- {{ (str.length>6)? (str | slice:0:6)+'..':(str) }} -->
-              <!-- {{str | slice:0:6}} -->
-              <button class="btn">learn more</button>
-            </div>
-            <div class="col-md-5" data-aos="fade-down">
-              <img src="assets/images/preg1.jpg" alt="" class="img-responsive">
-            </div>
-          </div>
-
-          <div class="row omg">
-            <div class="col-md-7" data-aos="fade-up">
-              <h4>post title</h4>
-              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta placeat, magni qui ratione ducimus iste beatae quos asperiores exercitationem tempore veniam deserunt obcaecati modi adipisci itaque saepe ea facilis molestiae accusantium! Quidem ipsam quae omnis repudiandae, a libero harum quos? Rem, laudantium expedita corrupti illum voluptatum at id nam saepe!</p>
-              <button class="btn">learn more</button>
-            </div>
-            <div class="col-md-5" data-aos="fade-down">
-              <img src="assets/images/preg1.jpg" alt="" class="img-responsive">
-            </div>
-          </div>
-
-          <div class="row omg">
-            <div class="col-md-7" data-aos="fade-up">
-              <h4>post title</h4>
-              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta placeat, magni qui ratione ducimus iste beatae quos asperiores exercitationem tempore veniam deserunt obcaecati modi adipisci itaque saepe ea facilis molestiae accusantium! Quidem ipsam quae omnis repudiandae, a libero harum quos? Rem, laudantium expedita corrupti illum voluptatum at id nam saepe!</p>
-              <button class="btn">learn more</button>
-            </div>
-            <div class="col-md-5" data-aos="fade-down">
-              <img src="assets/images/preg1.jpg" alt="" class="img-responsive">
-            </div>
-          </div>
-
-          <div class="row omg">
-            <div class="col-md-7" data-aos="fade-up">
-              <h4>post title</h4>
-              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta placeat, magni qui ratione ducimus iste beatae quos asperiores exercitationem tempore veniam deserunt obcaecati modi adipisci itaque saepe ea facilis molestiae accusantium! Quidem ipsam quae omnis repudiandae, a libero harum quos? Rem, laudantium expedita corrupti illum voluptatum at id nam saepe!</p>
-              <button class="btn">learn more</button>
-            </div>
-            <div class="col-md-5" data-aos="fade-down">
-              <img src="assets/images/preg1.jpg" alt="" class="img-responsive">
-            </div>
-          </div>
-
+          <p class="info-text mat-body-1" *ngIf="posts.length <= 0 && !isLoading">No posts added yet!</p>
         </div>
+
+        <br> <br>
+        <mat-paginator [length]="totalPosts"
+          [pageSize]="postsPerPage"
+          [pageSizeOptions]="pageSizeOptions"
+          (page)="onChangedPage($event)"
+          *ngIf="posts.length > 0">
+        </mat-paginator>
+        <p class="info-text mat-body-1" *ngIf="posts.length <= 0 && !isLoading">No posts added yet!</p>
+
       </div>
     </div>
   </div>

@@ -1,12 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { environment } from "../../../environments/environment";
 import { AuthData } from "../interface/auth-data.model";
-
-// import { JwtHelperService } from '@auth0/angular-jwt';
 
 const BACKEND_URL = environment.apiUrl + "/user/";
 
@@ -20,8 +17,8 @@ export class AuthService {
   private token: string;
   private tokenTimer: any;
   private userId: string;
-  private fullName: string;
   private userName: string;
+  private image: string;
   private authStatusListener = new Subject<boolean>();
 
 
@@ -39,30 +36,39 @@ export class AuthService {
     return this.userId;
   }
 
-  getuserName() {
+  getUserName() {
     return this.userName;
+  }
+
+  getImage() {
+    return this.image;
   }
 
   getAuthStatusListener() {
     return this.authStatusListener.asObservable();
   }
 
-  createUser(fullname: string, phone: string, email: string, password: string) {
-    const authData: AuthData = { fullname: fullname, phone: phone, email: email, password: password };
-    this.http.post(BACKEND_URL + "/signup", authData).subscribe(
-      () => {
+  createUser(fullname: string, phone: string, email: string, image: string, password: string) {
+    const authData = new FormData();
+    authData.append("fullname", fullname);
+    authData.append("phone", phone);
+    authData.append("email", email);
+    authData.append("image", image);
+    authData.append("password", password);
+    this.http
+      .post<{ message: string; result: AuthData }>(
+        "http://localhost:3200/api/user/signup",
+        authData
+      )
+      .subscribe(responseData => {
         this.router.navigate(["/login"]);
-      },
-      error => {
-        this.authStatusListener.next(false);
-      }
-    );
+      });
   }
 
-  login(fullname: string, phone: string, email: string, password: string ) {
-    const authData: AuthData = { fullname: fullname, phone: phone, email: email, password: password };
+  login(fullname: string, phone: string, email: string, image: string,  password: string ) {
+    const authData: AuthData = { fullname: fullname, phone: phone, image, email: email, password: password };
     this.http
-      .post<{ token: string; expiresIn: number; userId: string; fullName: string }>(
+      .post<{ token: string; expiresIn: number; userId: string; userName: string; image: string; }>(
         BACKEND_URL + "/login",
         authData
       )
@@ -70,23 +76,20 @@ export class AuthService {
         response => {
           const token = response.token;
           this.token = token;
-          const userName = response.fullName;
-          // localStorage.setItem('preg_token', response.data.tokenData.token);
-          // this.Token = this.jwtHelper.decodeToken(response.data.tokenData.token);
-          // const fullName = this.token.fullname;
           if (token) {
             const expiresInDuration = response.expiresIn;
             this.setAuthTimer(expiresInDuration);
             this.isAuthenticated = true;
             this.userId = response.userId;
-            this.fullName = response.fullName;
+            this.userName = response.userName;
+            this.image = response.image;
             this.authStatusListener.next(true);
             const now = new Date();
             const expirationDate = new Date(
               now.getTime() + expiresInDuration * 1000
             );
             console.log(expirationDate);
-            this.saveAuthData(token, expirationDate, this.userId, this.fullName);
+            this.saveAuthData(token, expirationDate, this.userId, this.userName, this.image);
             this.router.navigate(["/blog"]);
           }
         },
@@ -108,6 +111,8 @@ export class AuthService {
       this.token = authInformation.token;
       this.isAuthenticated = true;
       this.userId = authInformation.userId;
+      this.userName = authInformation.userName;
+      this.image = authInformation.image;
       this.setAuthTimer(expiresIn / 1000);
       this.authStatusListener.next(true);
     }
@@ -130,25 +135,28 @@ export class AuthService {
     }, duration * 1000);
   }
 
-  private saveAuthData(token: string, expirationDate: Date, userId: string, fullName: string) {
+  private saveAuthData(token: string, expirationDate: Date, userId: string, userName: string, image: string) {
     localStorage.setItem("token", token);
     localStorage.setItem("expiration", expirationDate.toISOString());
     localStorage.setItem("userId", userId);
-    localStorage.setItem("fullName", fullName);
+    localStorage.setItem("userName", userName);
+    localStorage.setItem("image", image);
   }
 
   private clearAuthData() {
     localStorage.removeItem("token");
     localStorage.removeItem("expiration");
     localStorage.removeItem("userId");
-    localStorage.removeItem("fullName");
+    localStorage.removeItem("userName");
+    localStorage.removeItem("image");
   }
 
   private getAuthData() {
     const token = localStorage.getItem("token");
     const expirationDate = localStorage.getItem("expiration");
     const userId = localStorage.getItem("userId");
-    const fullName = localStorage.getItem("fullName");
+    const userName = localStorage.getItem("userName");
+    const image = localStorage.getItem("image");
     if (!token || !expirationDate) {
       return;
     }
@@ -156,7 +164,8 @@ export class AuthService {
       token: token,
       expirationDate: new Date(expirationDate),
       userId: userId,
-      fullName: fullName
+      userName: userName,
+      image: image
     };
   }
 

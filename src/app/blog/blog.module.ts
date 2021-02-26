@@ -8,6 +8,8 @@ import { FooterModule } from '../footer/footer.module';
 
 import { AngularMaterialModule } from '../angular-material/angular-material.module';
 
+import { NgxPaginationModule } from 'ngx-pagination';
+
 @NgModule({
   declarations: [BlogComponent],
   imports: [
@@ -15,7 +17,8 @@ import { AngularMaterialModule } from '../angular-material/angular-material.modu
     BlogRoutingModule,
     HeaderModule,
     FooterModule,
-    AngularMaterialModule
+    AngularMaterialModule,
+    NgxPaginationModule
   ]
 })
 export class BlogModule { }

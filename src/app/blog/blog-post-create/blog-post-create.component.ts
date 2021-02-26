@@ -33,6 +33,8 @@ export class BlogPostCreateComponent implements OnInit {
   // private mode = "create";
   private postId: string;
   private authStatusSub: Subscription;
+  userId: string;
+  userIsAuthenticated = false;
 
   constructor(
     public postsService: BlogService,
@@ -85,6 +87,9 @@ export class BlogPostCreateComponent implements OnInit {
       .subscribe(authStatus => {
         this.isLoading = false;
       });
+
+    this.userId = this.authService.getUserId();
+
     this.form = new FormGroup({
       title: new FormControl(null, {
         validators: [Validators.required, Validators.minLength(3)]
@@ -114,6 +119,13 @@ export class BlogPostCreateComponent implements OnInit {
       return;
     }
     this.isLoading = true;
+    // this.userIsAuthenticated = this.authService.getIsAuth();
+    // this.authStatusSub = this.authService
+    //   .getAuthStatusListener()
+    //   .subscribe(isAuthenticated => {
+    //     this.userIsAuthenticated = isAuthenticated;
+    //     this.userId = this.authService.getUserId();
+    //   });
     this.postsService.addPost(
       this.form.value.title,
       this.form.value.content,

@@ -1,11 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
+
 import { Observable, Subject } from 'rxjs';
 import { map } from "rxjs/operators";
-import { Router } from '@angular/router';
+
 import { environment } from "../../../environments/environment";
 
 import { Blog } from '../interface/blog.model';
+import { Comment } from '../interface/comment';
 
 const url = environment.apiUrl + "/posts/";
 
@@ -15,36 +18,41 @@ const url = environment.apiUrl + "/posts/";
 export class BlogService {
 
   private posts: Blog[] = [];
+  comments: Comment[] = [];
   private postsUpdated = new Subject<{ posts: Blog[]; postCount: number }>();
 
   constructor(private http: HttpClient, private router: Router) { }
 
-  getPosts() {
+
+  getPosts(postsPerPage: number, currentPage: number) {
+    const queryParams = `?pagesize=${postsPerPage}&page=${currentPage}`;
     this.http
-    .get<{ message: string; posts: any; maxPosts: number }>(url)
-    .pipe(
-      map(postData => {
-        return {
-          posts: postData.posts.map(post => {
-            return {
-              title: post.title,
-              content: post.content,
-              id: post._id,
-              imagePath: post.imagePath,
-              creator: post.creator
-            };
-          }),
-          maxPosts: postData.maxPosts
-        };
-      })
-    )
-    .subscribe(transformedPostData => {
-      this.posts = transformedPostData.posts;
-      this.postsUpdated.next({
-        posts: [...this.posts],
-        postCount: transformedPostData.maxPosts
+      .get<{ message: string; posts: Blog[]; maxPosts: number }>(
+        url + queryParams
+      )
+      .pipe(
+        map(postData => {
+          return {
+            posts: postData.posts.map(post => {
+              return {
+                title: post.title,
+                content: post.content,
+                id: post._id,
+                imagePath: post.imagePath,
+                creator: post.creator
+              };
+            }),
+            maxPosts: postData.maxPosts
+          };
+        })
+      )
+      .subscribe(transformedPostData => {
+        this.posts = transformedPostData.posts;
+        this.postsUpdated.next({
+          posts: [...this.posts],
+          postCount: transformedPostData.maxPosts
+        });
       });
-    });
   }
 
   getPostUpdateListener() {
@@ -52,13 +60,15 @@ export class BlogService {
   }
 
   getPost(id: string) {
-    return this.http.get<{
-      _id: string;
-      title: string;
-      content: string;
-      imagePath: string;
-      creator: string;
-    }>(url + id);
+    return this.http.get<{ post: Blog, comments: Comment[] }>(url + id);
+    // return this.http.get<{
+    //   _id: string;
+    //   title: string;
+    //   content: string;
+    //   imagePath: string;
+    //   creator: string;
+    //   comment: Comment
+    // }>(url + id);
   }
 
   addPost(title: string, content: string, image: File) {
@@ -68,7 +78,7 @@ export class BlogService {
     postData.append("image", image, title);
     this.http
       .post<{ message: string; post: Blog }>(
-        url,
+        "http://localhost:3200/api/posts",
         postData
       )
       .subscribe(responseData => {
@@ -96,7 +106,7 @@ export class BlogService {
     this.http
       .put(url + id, postData)
       .subscribe(response => {
-        this.router.navigate(["/blog"]);
+        this.router.navigate(['/show', id]);
       });
   }
 

@@ -3,42 +3,36 @@ import { Blog } from "../shared/interface/blog.model";
 import { Subscription } from 'rxjs';
 import { AuthService } from '../shared/services/auth.service'
 import { BlogService } from '../shared/services/blog.service';
+import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-blog',
   templateUrl: './blog.component.html',
   styleUrls: ['./blog.component.scss']
 })
-export class BlogComponent implements OnInit, OnDestroy {
+export class BlogComponent implements OnInit {
 
   posts: Blog[] = [];
   isLoading = false;
   totalPosts = 0;
-  totalRecords;
-  page: Number = 1;
-  // postsPerPage = 2;
-  // currentPage = 1;
-  // pageSizeOptions = [1, 2, 5, 10];
+  postsPerPage = 2;
+  currentPage = 1;
+  pageSizeOptions = [1, 2, 5, 10];
   userIsAuthenticated = false;
   userId: string;
+  userName: string;
+  image: string;
   private postsSub: Subscription;
   private authStatusSub: Subscription;
   private authListenerSubs: Subscription;
-  username: string;
 
 
   constructor(public blogService: BlogService, private authService: AuthService) {}
 
   ngOnInit() {
-    this.userIsAuthenticated = this.authService.getIsAuth();
-    this.authListenerSubs = this.authService
-      .getAuthStatusListener()
-      .subscribe(isAuthenticated => {
-        this.userIsAuthenticated = isAuthenticated;
-      });
 
     this.isLoading = true;
-    this.totalRecords = this.blogService.getPosts();
+    this.blogService.getPosts(this.postsPerPage, this.currentPage);
     this.userId = this.authService.getUserId();
     this.postsSub = this.blogService
       .getPostUpdateListener()
@@ -54,20 +48,19 @@ export class BlogComponent implements OnInit, OnDestroy {
         this.userIsAuthenticated = isAuthenticated;
         this.userId = this.authService.getUserId();
       });
-
-    // this.username = this.authService.login().userName;
+    this.userName = this.authService.getUserName();
+    this.image = this.authService.getImage();
   }
 
+  onChangedPage(pageData: PageEvent) {
+    this.isLoading = true;
+    this.currentPage = pageData.pageIndex + 1;
+    this.postsPerPage = pageData.pageSize;
+    this.blogService.getPosts(this.postsPerPage, this.currentPage);
+  }
 
   onLogout() {
     this.authService.logout();
-  }
-
-
-  ngOnDestroy() {
-    this.postsSub.unsubscribe();
-    this.authStatusSub.unsubscribe();
-    this.authListenerSubs.unsubscribe();
   }
 
 }

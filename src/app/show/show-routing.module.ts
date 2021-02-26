@@ -7,19 +7,19 @@ const routes: Routes = [
   {
     path: '',
     component: ShowComponent
-  },
-  {
-    path: 'edit/:postId',
-    children: [
-      {
-        path: '',
-        loadChildren: () =>
-          import('./edit/edit.module')
-            .then(m => m.EditModule)
-      }
-    ],
-    canActivate: [AuthGuard]
   }
+  // {
+  //   path: 'edit/:postId',
+  //   canActivate: [AuthGuard],
+  //   children: [
+  //     {
+  //       path: '',
+  //       loadChildren: () =>
+  //         import('./edit/edit.module')
+  //           .then(m => m.EditModule)
+  //     }
+  //   ]
+  // }
 ];
 
 @NgModule({

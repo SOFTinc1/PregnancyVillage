@@ -1,6 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/shared/services/auth.service';
 
@@ -14,7 +13,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   isLoading = false;
   private authStatusSub: Subscription;
 
-  constructor(public authService: AuthService, private _snackBar: MatSnackBar) { }
+  constructor(public authService: AuthService) { }
 
   ngOnInit(): void {
     this.authStatusSub = this.authService.getAuthStatusListener().subscribe(
@@ -29,15 +28,10 @@ export class LoginComponent implements OnInit, OnDestroy {
       return;
     }
     this.isLoading = true;
-    this.authService.login(form.value.fullname, form.value.phone, form.value.email, form.value.password);
-    this.openSnackBar('login successful', 'enter');
+    this.authService.login(form.value.fullname, form.value.phone, form.value.email, form.value.image, form.value.password);
   }
 
-  openSnackBar(message: string, action: string) {
-    this._snackBar.open(message, action, {
-      duration: 2000,
-    });
-  }
+
 
   ngOnDestroy() {
     this.authStatusSub.unsubscribe();

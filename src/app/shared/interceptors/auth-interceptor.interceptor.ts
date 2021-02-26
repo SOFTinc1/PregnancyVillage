@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 import { AuthService } from '../services/auth.service';
 
 @Injectable()
-export class AuthInterceptorInterceptor implements HttpInterceptor {
+export class AuthInterceptor implements HttpInterceptor {
 
   constructor(private authService: AuthService) {}
 
@@ -21,3 +21,4 @@ export class AuthInterceptorInterceptor implements HttpInterceptor {
     return next.handle(authRequest);
   }
 }
+

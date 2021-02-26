@@ -4,6 +4,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatPaginatorModule } from '@angular/material/paginator';
+
 
 
 
@@ -17,7 +19,8 @@ import { MatSidenavModule } from '@angular/material/sidenav';
     MatProgressSpinnerModule,
     MatSnackBarModule,
     MatInputModule,
-    MatSidenavModule
+    MatSidenavModule,
+    MatPaginatorModule
   ]
 })
 export class AngularMaterialModule { }
