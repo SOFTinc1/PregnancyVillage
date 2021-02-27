@@ -10,7 +10,7 @@ import { environment } from "../../../environments/environment";
 import { Blog } from '../interface/blog.model';
 import { Comment } from '../interface/comment';
 
-const url = environment.apiUrl + "/posts/";
+// const url = environment.apiUrl + "/posts/";
 
 @Injectable({
   providedIn: 'root'
